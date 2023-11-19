@@ -19,8 +19,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TradeSteps {
 
@@ -38,9 +37,25 @@ public class TradeSteps {
     }
 
     // TODO implement: Given for "one security {string} and two users {string} and {string} exist"
+    @Given("one security {string} and two users {string} and {string} exist")
     public void oneSecurityAndTwoUsers(String securityName, String userName1, String userName2) {
+        logger.info("Creating user1 : {}",userName1);
+        createUser(userName1);
+        logger.info("Creating user2 : {}", userName2);
+        createUser(userName2);
+        logger.info("Creating security : {}", securityName);
+        createSecurity(securityName);
+
+        UserDTO createdUser1 = userMap.get(userName1);
+        UserDTO createdUser2 = userMap.get(userName2);
+        SecurityDTO createdSecurity = securityMap.get(securityName);
+
+        assertEquals(String.format("User \"%s\" does not exist", userName1), userName1, createdUser1.getUsername());
+        assertEquals(String.format("User \"%s\" does not exist", userName2), userName2, createdUser2.getUsername());
 
     }
+
+
 
     @When("user {string} puts a {string} order for security {string} with a price of {double} and quantity of {long}")
     @And("user {string} puts a {string} order for security {string} with a price of {double} and a quantity of {long}")
@@ -102,8 +117,25 @@ public class TradeSteps {
                              String securityName,
                              Double price,
                              Long quantity) {
-        // TODO: implement create oder function
-        logger.info("To be implemented! ... Order created: {}");
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setUserId(userMap.get(userName).getId());
+        orderDTO.setType(orderType);
+        orderDTO.setSecurityId(securityMap.get(securityName).getId());
+        orderDTO.setPrice(price);
+        orderDTO.setQuantity(quantity);
+        OrderDTO orderReturned = restUtility.post("api/orders", orderDTO, OrderDTO.class);
+        assertNotNull("Order creation failed", orderReturned);
+        assertEquals("UserId not expected", userMap.get(userName).getId(), orderReturned.getUserId());
+        assertEquals("OrderType not expected",orderType, orderReturned.getType());
+        assertEquals("Security Id not expected",securityMap.get(securityName).getId(), orderReturned.getSecurityId());
+        assertEquals("Price not expected",price,orderReturned.getPrice());
+        assertEquals("Quantity not expected", quantity,orderReturned.getQuantity());
+        logger.info("Order created: {}", orderReturned);
+        if (orderType == EOrderType.BUY){
+            buyOrder = orderReturned;
+        }else{
+            sellOrder = orderReturned;
+        }
     }
 
 }
