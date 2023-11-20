@@ -39,6 +39,7 @@ public class TradeSteps {
     // TODO implement: Given for "one security {string} and two users {string} and {string} exist"
     @Given("one security {string} and two users {string} and {string} exist")
     public void oneSecurityAndTwoUsers(String securityName, String userName1, String userName2) {
+
         logger.info("Creating user1 : {}",userName1);
         createUser(userName1);
         logger.info("Creating user2 : {}", userName2);
@@ -50,8 +51,42 @@ public class TradeSteps {
         UserDTO createdUser2 = userMap.get(userName2);
         SecurityDTO createdSecurity = securityMap.get(securityName);
 
-        assertEquals(String.format("User \"%s\" does not exist", userName1), userName1, createdUser1.getUsername());
-        assertEquals(String.format("User \"%s\" does not exist", userName2), userName2, createdUser2.getUsername());
+        assertNotNull(String.format("User \"%s\" does not exist", userName1), createdUser1);
+        assertNotNull(String.format("User \"%s\" does not exist", userName2), createdUser2);
+        assertNotNull(String.format("User \"%s\" does not exist", userName2),createdSecurity);
+
+        assertEquals("Username1 not expected", userName1, createdUser1.getUsername());
+        assertEquals("Username2 not expected", userName2, createdUser2.getUsername());
+        assertEquals("Security name not expected", securityName, createdSecurity.getName());
+
+    }
+    @Given("one security {string} and three users {string}, {string}, {string} exist")
+    public void oneSecurityAndThreeUsers(String securityName, String userName1, String userName2, String userName3) {
+
+        logger.info("Creating user1 : {}",userName1);
+        createUser(userName1);
+        logger.info("Creating user2 : {}", userName2);
+        createUser(userName2);
+        logger.info("Creating user2 : {}", userName3);
+        createUser(userName3);
+        logger.info("Creating security : {}", securityName);
+        createSecurity(securityName);
+
+
+        UserDTO createdUser1 = userMap.get(userName1);
+        UserDTO createdUser2 = userMap.get(userName2);
+        UserDTO createdUser3 = userMap.get(userName3);
+        SecurityDTO createdSecurity = securityMap.get(securityName);
+
+        assertNotNull(String.format("User \"%s\" does not exist", userName1), createdUser1);
+        assertNotNull(String.format("User \"%s\" does not exist", userName2), createdUser2);
+        assertNotNull(String.format("User \"%s\" does not exist", userName3), createdUser3);
+        assertNotNull(String.format("User \"%s\" does not exist", securityName),createdSecurity);
+
+        assertEquals("Username1 not expected", userName1, createdUser1.getUsername());
+        assertEquals("Username2 not expected", userName2, createdUser2.getUsername());
+        assertEquals("Username3 not expected", userName3, createdUser3.getUsername());
+        assertEquals("Security name not expected", securityName, createdSecurity.getName());
 
     }
 
