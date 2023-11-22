@@ -4,6 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import name.lattuada.trading.model.EOrderType;
 import name.lattuada.trading.model.dto.OrderDTO;
 import name.lattuada.trading.model.dto.SecurityDTO;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -29,6 +32,8 @@ public class TradeSteps {
     private final Map<String, UserDTO> userMap;
     private OrderDTO buyOrder;
     private OrderDTO sellOrder;
+
+    private String validUserName;
 
     TradeSteps() {
         restUtility = new RestUtility();
@@ -173,4 +178,29 @@ public class TradeSteps {
         }
     }
 
+    @Given("a valid user name provided {string}")
+    public void a_valid_user_name_provided(String userName) {
+        validUserName = userName;
+        logger.info("The user name set: {}",validUserName );
+    }
+    @When("a post request to create user send to API")
+    public void a_post_request_to_create_user_send_to_api() {
+        createUser(validUserName);
+    }
+    @When("receive the response and validate the user data")
+    public void receive_the_response_and_validate_the_user_data() {
+        UserDTO createdUser = userMap.get(validUserName);
+        assertNotNull(String.format("User \"%s\" does not exist", validUserName), createdUser);
+        assertEquals("Username1 not expected", validUserName, createdUser.getUsername());
+        logger.info("Validation completed successfully");
+    }
+
+    @Then("send a get request to list all users and validate the user exist")
+    public void send_a_get_request_to_list_all_users_and_validate_the_user_exist() {
+       Response response = restUtility.get("api/users", Response.class);
+       JsonPath jsonPath = response.jsonPath();
+       List<String> userNames = jsonPath.getList("username");
+
+
+    }
 }

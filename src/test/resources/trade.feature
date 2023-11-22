@@ -1,3 +1,4 @@
+@SmokeTests
 Feature: 00 Smoke Tests
 
   Scenario: Basic trading Buy Sell
