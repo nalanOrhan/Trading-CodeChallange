@@ -3,3 +3,4 @@
 /target/
 /.jpb/
 **/*.log
+/test-output

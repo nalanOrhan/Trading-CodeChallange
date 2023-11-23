@@ -66,34 +66,6 @@ public class TradeSteps {
 
     }
 
-    @Given("one security {string} and three users {string}, {string}, {string} exist")
-    public void oneSecurityAndThreeUsers(String securityName, String userName1, String userName2, String userName3) {
-
-        logger.info("Creating user1 : {}",userName1);
-        createUser(userName1);
-        logger.info("Creating user2 : {}", userName2);
-        createUser(userName2);
-        logger.info("Creating user2 : {}", userName3);
-        createUser(userName3);
-        logger.info("Creating security : {}", securityName);
-        createSecurity(securityName);
-
-        UserDTO createdUser1 = userMap.get(userName1);
-        UserDTO createdUser2 = userMap.get(userName2);
-        UserDTO createdUser3 = userMap.get(userName3);
-        SecurityDTO createdSecurity = securityMap.get(securityName);
-
-        assertNotNull(String.format("User \"%s\" does not exist", userName1), createdUser1);
-        assertNotNull(String.format("User \"%s\" does not exist", userName2), createdUser2);
-        assertNotNull(String.format("User \"%s\" does not exist", userName3), createdUser3);
-        assertNotNull(String.format("User \"%s\" does not exist", securityName),createdSecurity);
-
-        assertEquals("Username1 not expected", userName1, createdUser1.getUsername());
-        assertEquals("Username2 not expected", userName2, createdUser2.getUsername());
-        assertEquals("Username3 not expected", userName3, createdUser3.getUsername());
-        assertEquals("Security name not expected", securityName, createdSecurity.getName());
-    }
-
     @When("user {string} puts a {string} order for security {string} with a price of {double} and quantity of {long}")
     @And("user {string} puts a {string} order for security {string} with a price of {double} and a quantity of {long}")
     public void userPutAnOrder(String userName, String orderType, String securityName, Double price, Long quantity) {
