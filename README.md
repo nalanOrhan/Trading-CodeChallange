@@ -17,13 +17,10 @@ Maven (define the environment variable `M2_HOME` appropriately).
 Execute in a shell
 
 ```shell
-git clone https://github.com/aldialimucaj/trading.git
+git clone https://github.com/nalanOrhan/Trading-CodeChallange.git
 cd trading
 mvn -U clean verify -DskipTests
 ```
-
-Note: here tests are skipped, since they are executed later, see the Chapter
-"Test the code".
 
 In this way, a new jar file will be created in the `target` folder, e.g.
 `target/trading-0.0.2-SNAPSHOT.jar`.
@@ -42,10 +39,6 @@ Once you launched the main application (see the previous Chapter), you can test 
 mvn test
 ```
 
-Note that here the whole application has been structured to have it first running
-(see the previous Chapter), then tested via Cucumber. In this way, you can eventually verify manually the database
-content.
-
 Optionally, you can remove the comment to annotation `@SpringBootTest` in file
 [`CucumberTest.java`](src/test/java/name/lattuada/trading/tests/CucumberTest.java), so you can run the test without
 explicitly having the application running.
@@ -58,38 +51,15 @@ mvn -U clean verify
 
 you can build and test directly the code.
 
-## Verify database content
-
-When the application is running, you can check the database content with a
-browser: [H2 Console](http://localhost:8080/h2-console/).
-
-Here the settings to access the H2 console (values referenced
-in [`application.properties`](src/main/resources/application.properties)):
-
-* JDBC URL: `jdbc:h2:mem:trading` (see entry `spring.datasource.url` )
-* Password: `password` (see entry `spring.datasource.password`)
-
-## Debugging
-
-* SQL statements are not logged by default. To turn them on, set the entry `spring.jpa.show-sql`
-  to `true` in file [`application.properties`](src/main/resources/application.properties).
-* H2 console is active by default. To turn it off, remove the entry `spring.h2.console.enabled`
-  from [`application.properties`](src/main/resources/application.properties).
-
 ## API
 
 Once the application is started, you can check all the available APIs and models by using
 the [Swagger interface](http://localhost:8080/swagger-ui/).
 
-## Improvements
+## Test Reports
 
-1. Unit tests!!!
-2. Foreign keys and eventually better constraints on DB schema, so we avoid adding corrupted data in the database (e.g.
-   orders related to not existing users/securities...)
-3. Introduce test parameters (e.g. base URL) to be read from a configuration file
-4. Fix errors notified by SpotBugs (you can check them via `mvn spotbugs:gui`)
-5. Fix errors notified by Checkstyle (and eventually tune the settings file). You can check the errors via
-    ```shell
-   mvn checkstyle:checkstyle
-   ```
-   then open the HTML report located to `target/site/checkstyle.html`.
+Once the tests run a pdf report and a html report will be created in test-output package
+   
+open the HTML report located to `test-output/SparkReport/Spark.html`
+
+open the pdf report located to `test-output/PdfReport/SparkPdf.pdf`
