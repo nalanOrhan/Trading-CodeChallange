@@ -4,8 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import name.lattuada.trading.model.EOrderType;
 import name.lattuada.trading.model.dto.OrderDTO;
 import name.lattuada.trading.model.dto.SecurityDTO;
@@ -16,10 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
@@ -32,8 +28,12 @@ public class TradeSteps {
     private final Map<String, UserDTO> userMap;
     private OrderDTO buyOrder;
     private OrderDTO sellOrder;
-
     private String validUserName;
+    private String validSecurity;
+    private Double orderPrice;
+    private Long orderQuantity;
+    private OrderDTO orderReturned;
+    private UUID orderID;
 
     TradeSteps() {
         restUtility = new RestUtility();
@@ -65,6 +65,7 @@ public class TradeSteps {
         assertEquals("Security name not expected", securityName, createdSecurity.getName());
 
     }
+
     @Given("one security {string} and three users {string}, {string}, {string} exist")
     public void oneSecurityAndThreeUsers(String securityName, String userName1, String userName2, String userName3) {
 
@@ -76,7 +77,6 @@ public class TradeSteps {
         createUser(userName3);
         logger.info("Creating security : {}", securityName);
         createSecurity(securityName);
-
 
         UserDTO createdUser1 = userMap.get(userName1);
         UserDTO createdUser2 = userMap.get(userName2);
@@ -92,10 +92,7 @@ public class TradeSteps {
         assertEquals("Username2 not expected", userName2, createdUser2.getUsername());
         assertEquals("Username3 not expected", userName3, createdUser3.getUsername());
         assertEquals("Security name not expected", securityName, createdSecurity.getName());
-
     }
-
-
 
     @When("user {string} puts a {string} order for security {string} with a price of {double} and quantity of {long}")
     @And("user {string} puts a {string} order for security {string} with a price of {double} and a quantity of {long}")
@@ -163,7 +160,7 @@ public class TradeSteps {
         orderDTO.setSecurityId(securityMap.get(securityName).getId());
         orderDTO.setPrice(price);
         orderDTO.setQuantity(quantity);
-        OrderDTO orderReturned = restUtility.post("api/orders", orderDTO, OrderDTO.class);
+        orderReturned = restUtility.post("api/orders", orderDTO, OrderDTO.class);
         assertNotNull("Order creation failed", orderReturned);
         assertEquals("UserId not expected", userMap.get(userName).getId(), orderReturned.getUserId());
         assertEquals("OrderType not expected",orderType, orderReturned.getType());
@@ -191,16 +188,70 @@ public class TradeSteps {
     public void receive_the_response_and_validate_the_user_data() {
         UserDTO createdUser = userMap.get(validUserName);
         assertNotNull(String.format("User \"%s\" does not exist", validUserName), createdUser);
-        assertEquals("Username1 not expected", validUserName, createdUser.getUsername());
+        assertEquals("Username not expected", validUserName, createdUser.getUsername());
         logger.info("Validation completed successfully");
     }
 
     @Then("send a get request to list all users and validate the user exist")
     public void send_a_get_request_to_list_all_users_and_validate_the_user_exist() {
-       Response response = restUtility.get("api/users", Response.class);
-       JsonPath jsonPath = response.jsonPath();
-       List<String> userNames = jsonPath.getList("username");
-
-
+        UserDTO[] userArray = restUtility.get("api/users", UserDTO[].class);
+        List<String> usernames = Arrays.stream(userArray)
+                .map(UserDTO::getUsername)
+                .collect(Collectors.toList());
+        assertTrue(usernames.contains(validUserName));
+        logger.info("Validation completed successfully");
+    }
+    @Given("a valid security name provided {string}")
+    public void a_valid_security_name_provided(String securityName) {
+        validSecurity = securityName;
+        logger.info("Security name set: {}", validSecurity);
+    }
+    @When("a post request to create security send to API")
+    public void a_post_request_to_create_security_send_to_api() {
+        createSecurity(validSecurity);
+    }
+    @When("receive the response and validate the security data")
+    public void receive_the_response_and_validate_the_security_data() {
+        SecurityDTO createdSecurity = securityMap.get(validSecurity);
+        assertNotNull(String.format("Security \"%s\" does not exist", validSecurity), createdSecurity);
+        assertEquals("Security not expected", validSecurity, createdSecurity.getName());
+        logger.info("Validation completed successfully");
+    }
+    @Then("send a get request to list all users and validate the security exist")
+    public void send_a_get_request_to_list_all_users_and_validate_the_security_exist() {
+        SecurityDTO[] securityArray = restUtility.get("api/securities", SecurityDTO[].class);
+        List<String> securityNames = Arrays.stream(securityArray)
+                .map(SecurityDTO::getName)
+                .collect(Collectors.toList());
+        assertTrue(securityNames.contains(validSecurity));
+        logger.info("Validation completed successfully");
+    }
+    @Given("an exist security {string}, an exist user {string}, quantity {long}, price {double}")
+    public void an_exist_security_an_exist_user_quantity_price(String security, String user, Long quantity, Double price) {
+        createUser(user);
+        validUserName= userMap.get(user).getUsername();
+        createSecurity(security);
+        validSecurity = securityMap.get(security).getName();
+        orderQuantity = quantity;
+        orderPrice = price;
+    }
+    @When("a post request to create {string} order send to API")
+    public void a_post_request_to_create_order_send_to_api(String orderType) {
+        createOrder(validUserName,EOrderType.valueOf(orderType.toUpperCase(Locale.ROOT)),validSecurity,orderPrice,orderQuantity);
+    }
+    @When("receive the response and validate the order data")
+    public void receive_the_response_and_validate_the_order_data() {
+        //Validations implemented inside the createOrder() method, no need to repeat
+        logger.info("Validation done successfully");
+        orderID = orderReturned.getId();
+    }
+    @Then("send a get request to list all orders and validate the {string} order exist")
+    public void send_a_get_request_to_list_all_orders_and_validate_the_order_exist(String orderType) {
+        OrderDTO[] orderArray = restUtility.get("api/orders",OrderDTO[].class);
+        List<UUID> orderIds = Arrays.stream(orderArray)
+                .map(OrderDTO::getId)
+                .collect(Collectors.toList());
+        assertTrue(orderIds.contains(orderID));
+        logger.info("Validation completed successfully");
     }
 }

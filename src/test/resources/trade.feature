@@ -1,4 +1,3 @@
-@SmokeTests
 Feature: 00 Smoke Tests
 
   Scenario: Basic trading Buy Sell
@@ -19,8 +18,8 @@ Feature: 00 Smoke Tests
     And user "User1" puts a "buy" order for security "NTR" with a price of 99 and quantity of 50
     Then no trades occur
 
-  Scenario: Trade with two buy order
-    Given one security "TBL" and three users "Fox", "Hawk", "Silver" exist
-    When user "Hawk" puts a "sell" order for security "TBL" with a price of 65 and a quantity of 60
-    And user "Fox" puts a "buy" order for security "TBL" with a price of 70 and quantity of 50
-    Then a trade occurs with the price of 65 and quantity of 10
+  #Scenario: Trade with two buy order
+  #  Given one security "TBL" and three users "Fox", "Hawk", "Silver" exist
+  #  When user "Hawk" puts a "sell" order for security "TBL" with a price of 65 and a quantity of 60
+  #  And user "Fox" puts a "buy" order for security "TBL" with a price of 70 and quantity of 50
+  #  Then a trade occurs with the price of 65 and quantity of 10

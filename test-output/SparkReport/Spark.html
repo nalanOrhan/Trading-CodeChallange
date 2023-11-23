@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>SPARK REPORT</title>
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@d6562a79075e061305ccfdb82f01e5e195e2d307/spark/css/spark-style.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
+<style type="text/css"></style></head><body class="spa bdd-report standard">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
+</a>
+</div>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">API Test Report</span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Nov 23, 2023 02:42:17 AM</span></a>
+</li>
+</ul>
+</div>
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>Nov 23, 2023 02:42:17 AM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>Nov 23, 2023 02:42:22 AM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Features Passed</p>
+<h3>2</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Features Failed</p>
+<h3>0</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Features</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'>
+<b>2</b> features passed
+</small>
+</div>
+<div>
+<small data-tooltip='0%'><b>0</b> features failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Scenarios</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='child-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>7</b> scenarios passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> scenarios failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Steps</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='grandchild-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>28</b> steps passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> steps failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"Functional Tests":1.259,"00 Smoke Tests":0.516
+};
+</script>
+<div class="row">
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 2,
+failParent: 0,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 7,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 28,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+};
+</script><div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="pass" test-id="1"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Functional Tests</p>
+            <p class="text-sm">
+              <span>2:42:20 AM</span> / <span>00:00:01:259</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Functional Tests</h5>
+<span class='badge badge-success'>11.23.2023 2:42:20 AM</span>
+<span class='badge badge-danger'>11.23.2023 2:42:21 AM</span>
+<span class='badge badge-default'>00:00:01:259</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Creating user successfully</div>
+      </div>
+    </div>
+        <div class="scenario_outline collapse">
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="3"><span class="badge log pass-bg mr-2">Pass</span>Creating user successfully</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given a valid user name provided "Silver"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When a post request to create user send to API</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And receive the response and validate the user data</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then send a get request to list all users and validate the user exist</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="8"><span class="badge log pass-bg mr-2">Pass</span>Creating user successfully</div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given a valid user name provided "Falcon"</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>When a post request to create user send to API</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And receive the response and validate the user data</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then send a get request to list all users and validate the user exist</span>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="13"><span class="badge log pass-bg mr-2">Pass</span>Creating Security successfully</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.a_valid_security_name_provided(java.lang.String)">
+                <span>Given a valid security name provided "TVN"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.a_post_request_to_create_security_send_to_api()">
+                <span>When a post request to create security send to API</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.receive_the_response_and_validate_the_security_data()">
+                <span>And receive the response and validate the security data</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.send_a_get_request_to_list_all_users_and_validate_the_security_exist()">
+                <span>Then send a get request to list all users and validate the security exist</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="18"><span class="badge log pass-bg mr-2">Pass</span>Creating a BUY order successfully</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.an_exist_security_an_exist_user_quantity_price(java.lang.String,java.lang.String,java.lang.Long,java.lang.Double)">
+                <span>Given an exist security "TVN", an exist user "Silver", quantity 101, price 60</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.a_post_request_to_create_order_send_to_api(java.lang.String)">
+                <span>When a post request to create "buy" order send to API</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.receive_the_response_and_validate_the_order_data()">
+                <span>And receive the response and validate the order data</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.send_a_get_request_to_list_all_orders_and_validate_the_order_exist(java.lang.String)">
+                <span>Then send a get request to list all orders and validate the "BUY" order exist</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="23"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">00 Smoke Tests</p>
+            <p class="text-sm">
+              <span>2:42:21 AM</span> / <span>00:00:00:516</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">00 Smoke Tests</h5>
+<span class='badge badge-success'>11.23.2023 2:42:21 AM</span>
+<span class='badge badge-danger'>11.23.2023 2:42:22 AM</span>
+<span class='badge badge-default'>00:00:00:516</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=23</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="24"><span class="badge log pass-bg mr-2">Pass</span>Basic trading Buy Sell</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.oneSecurityAndTwoUsers(java.lang.String,java.lang.String,java.lang.String)">
+                <span>Given one security "WSB" and two users "Diamond" and "Paper" exist</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.userPutAnOrder(java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Long)">
+                <span>When user "Diamond" puts a "buy" order for security "WSB" with a price of 101 and quantity of 50</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.userPutAnOrder(java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Long)">
+                <span>And user "Paper" puts a "sell" order for security "WSB" with a price of 100 and a quantity of 100</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.aTradeOccursWithThePriceOfAndQuantityOf(java.lang.Double,java.lang.Long)">
+                <span>Then a trade occurs with the price of 100 and quantity of 50</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="29"><span class="badge log pass-bg mr-2">Pass</span>Basic trading Sell Buy</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.oneSecurityAndTwoUsers(java.lang.String,java.lang.String,java.lang.String)">
+                <span>Given one security "SEC" and two users "User1" and "User2" exist</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.userPutAnOrder(java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Long)">
+                <span>When user "User2" puts a "sell" order for security "SEC" with a price of 100 and a quantity of 100</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.userPutAnOrder(java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Long)">
+                <span>And user "User1" puts a "buy" order for security "SEC" with a price of 101 and quantity of 50</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.aTradeOccursWithThePriceOfAndQuantityOf(java.lang.Double,java.lang.Long)">
+                <span>Then a trade occurs with the price of 100 and quantity of 50</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="34"><span class="badge log pass-bg mr-2">Pass</span>No trades occur</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.oneSecurityAndTwoUsers(java.lang.String,java.lang.String,java.lang.String)">
+                <span>Given one security "NTR" and two users "User1" and "User2" exist</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.userPutAnOrder(java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Long)">
+                <span>When user "User2" puts a "sell" order for security "NTR" with a price of 100 and a quantity of 100</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.userPutAnOrder(java.lang.String,java.lang.String,java.lang.String,java.lang.Double,java.lang.Long)">
+                <span>And user "User1" puts a "buy" order for security "NTR" with a price of 99 and quantity of 50</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="name.lattuada.trading.tests.TradeSteps.noTradesOccur()">
+                <span>Then no trades occur</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@d6562a79075e061305ccfdb82f01e5e195e2d307/spark/js/spark-script.js"></script>
+<script type="text/javascript"></script></body>
+</html>
