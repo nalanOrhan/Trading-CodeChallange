@@ -63,3 +63,5 @@ Once the tests run a pdf report and a html report will be created in test-output
 open the HTML report located to `test-output/SparkReport/Spark.html`
 
 open the pdf report located to `test-output/PdfReport/SparkPdf.pdf`
+
+cucumber reports https://reports.cucumber.io/report-collections/d72dd698-fd60-4621-8ce7-9fbe669a33ad
